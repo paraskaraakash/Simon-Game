@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #333;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    .content {
+      max-width: 800px;
+      background-color: #ffffffee;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      animation: slideUp 1.5s ease;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #555;
+      margin: 15px 0;
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      padding: 10px 25px;
+      font-size: 1rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #555;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>📜 Terms & Conditions</h1>
+  <div class="content">
+    <p>By using the Simon Says Game, you agree to the following terms:</p>
+    <p>1. This game is built for entertainment purposes only.</p>
+    <p>2. No user data is collected or stored.</p>
+    <p>3. You are free to play and share the game without modification.</p>
+    <p>4. This is a student-level project and not meant for commercial use.</p>
+    <p>5. Enjoy the game and improve your memory skills!</p>
+
+    <button class="back-btn" onclick="goBack()">🔙 Back to Game</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "index.html"; // Back to main game page
+    }
+  </script>
+</body>
+</html>
