@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simon Says - Welcome</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff, #fbc2eb, #a6c1ee);
+      background-size: 300% 300%;
+      animation: gradient 10s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .navbar {
+      background-color: #1a1a1a;
+      color: white;
+      width: 100%;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    .navbar marquee {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #00ffe1;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      margin-top: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #6a0dad;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4e0a8a;
+    }
+
+    .checkbox {
+      text-align: left;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .checkbox label a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+
+    .checkbox label a:hover {
+      text-decoration: underline;
+    }
+
+    .instructions {
+      background: #e0f7fa;
+      border-left: 5px solid #00bcd4;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-top: 15px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <marquee>Welcome to Simon Game | Enter your name and mobile number | Accept Terms and Conditions to start the game</marquee>
+  </div>
+  <div class="container">
+    <h1>🎮 Welcome to Simon Says</h1>
+    <form id="entryForm">
+      <input type="text" id="name" placeholder="Enter Your Name (min 10 letters)" required />
+      <input type="tel" id="mobile" placeholder="Enter Mobile Number" maxlength="10" required />
+
+      <div class="checkbox">
+        <input type="checkbox" id="terms" required />
+        <label for="terms">I agree to the <a href="term.html" target="_blank">Terms and Conditions</a></label>
+      </div>
+
+      <div class="instructions">
+        <h4>How to Play:</h4>
+        <p>Watch the color sequence and click the same colors in the correct order. Each round adds a new color. Try to go as far as you can!</p>
+      </div>
+
+      <button type="submit">Start Game</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("entryForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const termsChecked = document.getElementById("terms").checked;
+
+      const nameValid = /^[A-Za-z\s]{10,}$/.test(name);
+      const mobileValid = /^[6-9]\d{9}$/.test(mobile);
+
+      if (!nameValid) {
+        alert("Name must be at least 10 letters (only alphabets allowed).");
+        return;
+      }
+
+      if (!mobileValid) {
+        alert(`Dear ${name}, please enter a valid 10-digit Indian mobile number starting from 6-9.`);
+        return;
+      }
+
+      if (!termsChecked) {
+        alert("Please accept the Terms and Conditions to proceed.");
+        return;
+      }
+
+      // All validations passed
+      localStorage.setItem("username", name);
+      localStorage.setItem("mobile", mobile);
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
