@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Feedback</title>
   <style>
     * {
@@ -69,6 +69,13 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 1rem;
+      transition: all 0.3s ease-in-out;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #5a67d8;
+      outline: none;
+      box-shadow: 0 0 5px rgba(90, 103, 216, 0.6);
     }
 
     button {
@@ -109,23 +116,30 @@
     <input type="text" name="user_name" placeholder="Your Name" required>
     <input type="email" name="user_email" placeholder="Your Email" required>
     <textarea name="message" rows="5" placeholder="Write your feedback..." required></textarea>
-    <button type="submit">Submit Feedback</button>
+    <button type="submit" id="submitBtn">Submit Feedback</button>
     <div class="confirmation" id="confirmation-msg"></div>
   </form>
 
   <a href="index.html" class="back-btn">← Back to Game</a>
 
+  <!-- EmailJS Library -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
-    (function() {
-      emailjs.init("x_V4UivMPu8A4E6Jj");
+    (function () {
+      emailjs.init("x_V4UivMPu8A4E6Jj"); // 🔑 Replace with your EmailJS Public Key
     })();
 
     const form = document.getElementById('contact-form');
     const confirmation = document.getElementById('confirmation-msg');
+    const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      // Disable button and show sending message
+      submitBtn.disabled = true;
+      confirmation.style.color = "#333";
+      confirmation.innerText = "Sending your feedback...";
 
       const templateParams = {
         name: form.user_name.value,
@@ -134,35 +148,25 @@
         time: new Date().toLocaleString()
       };
 
-      emailjs.send('service_qsowue4', 'template_zd5yqth', templateParams)
-        .then(function(response) {
+      emailjs.send('service_qsowue4', 'template_5fgdcle', templateParams) // Replace both
+        .then(function (response) {
           console.log('SUCCESS!', response.status, response.text);
+          confirmation.style.color = "green";
           confirmation.innerHTML = `
-          <div style="font-family: system-ui, sans-serif, Arial; font-size: 14px; color: #212121">
-            <div style="max-width: 600px; margin: auto">
-              <div style="text-align: center; background-color: #ffc002; padding: 32px 16px; border-radius: 32px 32px 0 0;">
-                <img style="height: 32px; vertical-align: middle" height="32px" src="cid:logo.png" alt="logo" />
-              </div>
-              <div style="padding: 16px">
-                <h1 style="font-size: 26px; margin-bottom: 26px">Rate your experience!</h1>
-                <p>Thank you <b>${templateParams.name}</b> for your feedback. We appreciate your thoughts!</p>
-                <p style="text-align: center">
-                  <span style="font-size: 40px; color: #ffc002">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
-                </p>
-                <p style="font-size: 14px; color: #333">Submitted on: ${templateParams.time}</p>
-                <p style="font-size: 16px; margin-top: 10px">"${templateParams.message}"</p>
-              </div>
-              <div style="text-align: center; background-color: #ffc002; padding: 16px; border-radius: 0 0 32px 32px;">
-                <p>If you have any questions, contact us:</p>
-                <p><strong><a href="tel:+1234567890" style="color: #212121">+123 456 7890</a></strong></p>
-                <p><strong><a href="mailto:support@example.com" style="color: #212121">support@example.com</a></strong></p>
-              </div>
-            </div>
-          </div>`;
+            <div style="text-align: center;">
+              <h2>Thank you, ${templateParams.name}!</h2>
+              <p>We’ve received your feedback.</p>
+              <p><strong>Submitted on:</strong> ${templateParams.time}</p>
+              <p style="margin-top: 10px; font-style: italic;">"${templateParams.message}"</p>
+              <p style="font-size: 24px; color: #ffc002;">&#9733; &#9733; &#9733; &#9733; &#9733;</p>
+            </div>`;
           form.reset();
-        }, function(error) {
+          submitBtn.disabled = false;
+        }, function (error) {
           console.log('FAILED...', error);
-          confirmation.innerText = "Something went wrong. Please try again later.";
+          confirmation.style.color = "red";
+          confirmation.innerText = "Something went wrong. Please try again.";
+          submitBtn.disabled = false;
         });
     });
   </script>
