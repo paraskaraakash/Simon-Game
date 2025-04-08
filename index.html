@@ -3,35 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simon Says Game</title>
+  <title>Simon Game</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="./th.jpg" />
 </head>
 <body>
-
-  <nav>
-    <marquee behavior="scroll" direction="left">🎮 Welcome to the Simon Says Game! Match the colors & test your memory! 🎮</marquee>
+  <nav class="navbar">
+    <div class="nav-left">
+      <span class="user-icon">👤</span>
+      <span id="username-display" class="username">Player</span>
+    </div>
+    <div class="nav-right">
+      <button class="logout-icon" onclick="logout()">🚪 Logout</button>
+    </div>
   </nav>
 
-  <button id="start-btn">Start Game</button>
+  <h1>Simon Says</h1>
+  <h2 id="level-title">Press Start Game to Begin</h2>
 
- 
-  <h2>Click "Start Game" to begin</h2>
+
+  <button id="start-btn">Start</button>
 
   <div class="btn-container">
     <div class="line-one">
-      <div class="btn red" id="red">1</div>
-      <div class="btn yellow" id="yellow">2</div>
+      <div class="btn red" id="red"></div>
+      <div class="btn yellow" id="yellow"></div>
     </div>
     <div class="line-two">
-      <div class="btn green" id="green">3</div>
-      <div class="btn purple" id="purple">4</div>
+      <div class="btn green" id="green"></div>
+      <div class="btn purple" id="purple"></div>
     </div>
   </div>
 
   <footer>
-  <a href="./term.html"><button>Terms & Conditions</button></a>  
-    <button onclick="openHelp()">Help</button>
+    <div class="footer-left">
+       <a href="term.html"><button>Terms & Conditions</button></a>
+    </div>
+    <div class="footer-right">
+      <a href="contact.html"><button>Help</button></a>
+    </div>
   </footer>
 
   <script src="script.js"></script>
