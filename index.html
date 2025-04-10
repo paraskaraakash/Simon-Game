@@ -106,22 +106,34 @@
       margin-top: 15px;
       text-align: left;
     }
+
+    .error {
+      color: red;
+      font-size: 0.85rem;
+      margin-top: -5px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="navbar">
     <marquee>Welcome to Simon Game | Enter your name and mobile number | Accept Terms and Conditions to start the game</marquee>
   </div>
+  
   <div class="container">
     <h1>🎮 Welcome to Simon Says</h1>
     <form id="entryForm">
       <input type="text" id="name" placeholder="Enter Your Name (min 10 letters)" required />
+      <div id="nameError" class="error"></div>
+
       <input type="tel" id="mobile" placeholder="Enter Mobile Number" maxlength="10" required />
+      <div id="mobileError" class="error"></div>
 
       <div class="checkbox">
         <input type="checkbox" id="terms" required />
         <label for="terms">I agree to the <a href="term.html" target="_blank">Terms and Conditions</a></label>
       </div>
+      <div id="termsError" class="error"></div>
 
       <div class="instructions">
         <h4>How to Play:</h4>
@@ -136,33 +148,48 @@
     document.getElementById("entryForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
+      // Get values
       const name = document.getElementById("name").value.trim();
       const mobile = document.getElementById("mobile").value.trim();
       const termsChecked = document.getElementById("terms").checked;
 
+      // Error message elements
+      const nameError = document.getElementById("nameError");
+      const mobileError = document.getElementById("mobileError");
+      const termsError = document.getElementById("termsError");
+
+      // Reset errors
+      nameError.textContent = "";
+      mobileError.textContent = "";
+      termsError.textContent = "";
+
+      // Validation patterns
       const nameValid = /^[A-Za-z\s]{10,}$/.test(name);
       const mobileValid = /^[6-9]\d{9}$/.test(mobile);
 
+      let valid = true;
+
       if (!nameValid) {
-        alert("Name must be at least 10 letters (only alphabets allowed).");
-        return;
+        nameError.textContent = "Name must be at least 10 letters (only alphabets and spaces allowed).";
+        valid = false;
       }
 
       if (!mobileValid) {
-        alert(`Dear ${name}, please enter a valid 10-digit Indian mobile number starting from 6-9.`);
-        return;
+        mobileError.textContent = `Please enter a valid 10-digit Indian mobile number starting from 6-9.`;
+        valid = false;
       }
 
       if (!termsChecked) {
-        alert("Please accept the Terms and Conditions to proceed.");
-        return;
+        termsError.textContent = "Please accept the Terms and Conditions to proceed.";
+        valid = false;
       }
 
-      // All validations passed
-      localStorage.setItem("username", name);
-      localStorage.setItem("mobile", mobile);
-      window.location.href = "game
-        .html";
+      if (valid) {
+        // All validations passed
+        localStorage.setItem("username", name);
+        localStorage.setItem("mobile", mobile);
+        window.location.href = "game.html";
+      }
     });
   </script>
 </body>
