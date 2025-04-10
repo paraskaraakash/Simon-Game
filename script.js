@@ -96,7 +96,7 @@ document.getElementById("username-display").textContent =
 // Logout
 function logout() {
   localStorage.clear();
-  window.location.href = "main.html";
+  window.location.href = "index.html";
 }
 
 // Terms and Help
